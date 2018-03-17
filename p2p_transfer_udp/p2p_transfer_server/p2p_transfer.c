@@ -37,7 +37,7 @@ int set_sock_opt(int sock, int flag)
 			XL_DEBUG(EN_PRINT_ERROR, "set SO_REUSEPORT success");
 		}
 	}
-#ifndef NO_SUPPORT_REUSEPORT
+#ifdef SUPPORT_REUSEPORT
 	if (flag & SO_REUSEPORT)
 	{
 		if (-1 == setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(enable)))

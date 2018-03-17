@@ -10,8 +10,8 @@ extern "C" {
 #endif
 
 //#define P2P_TRANSFER_SERVER_DOMAIN	(t05b022.p2cdn.com)
-#if 0
-#define P2P_TRANSFER_SERVER_IP		"192.168.111.201"
+#if 1
+#define P2P_TRANSFER_SERVER_IP		"0.0.0.0"
 #else
 #define P2P_TRANSFER_SERVER_IP		"58.220.12.22"
 #endif

@@ -214,9 +214,11 @@ int main()
 
 	if (-1 == bind(sock, (const struct sockaddr *)&local_addr, addr_len))
 	{
-		XL_DEBUG(EN_PRINT_ERROR, "call bind() failed, err: %s", strerror(errno));
+		XL_DEBUG(EN_PRINT_ERROR, "call bind() failed, addr: %s, port: %d, err: %s",
+			P2P_TRANSFER_SERVER_IP, P2P_TRANSFER_SERVER_PORT, strerror(errno));
 		goto ERR;
 	}
+	XL_DEBUG(EN_PRINT_NOTICE, "bind %s %u", P2P_TRANSFER_SERVER_IP, P2P_TRANSFER_SERVER_PORT);
 
 	base = event_base_new();
 	if (NULL == base)
