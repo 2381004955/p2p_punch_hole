@@ -16,8 +16,8 @@ struct p2p_server_device_info_t
 {
 	struct list_head	list;
 	uint64_t            device_sn;       
-	struct in_addr		ip_addr;		/**< natÖ®ºóµÄipµØÖ·£¬ÍøÂçĞò. >*/
-	uint16_t            port;			/**< natÖ®ºóµÄ¶Ë¿Ú£¬ÍøÂçĞò. >*/
+	struct in_addr		ip_addr;		/**< natä¹‹åçš„ipåœ°å€ï¼Œç½‘ç»œåº. >*/
+	uint16_t            port;			/**< natä¹‹åçš„ç«¯å£ï¼Œç½‘ç»œåº. >*/
 	int                 network_type;
 };
 
@@ -43,7 +43,7 @@ static int process_ping_cmd(const struct p2p_msg_ping_t *pping, const struct soc
 
 	XL_DEBUG(EN_PRINT_DEBUG, "device_sn: %d, network_type: %d", pping->device_sn, pping->network_type);
 
-	/// TODO:ÏÈÅĞ¶ÏÊÇ·ñ´æÔÚ
+	/// TODO:å…ˆåˆ¤æ–­æ˜¯å¦å­˜åœ¨
 	INIT_LIST_HEAD(&(pdevice_info->list));
 	pdevice_info->device_sn = pping->device_sn;
 	pdevice_info->network_type = pping->network_type;
@@ -138,7 +138,7 @@ static int process_query_device_info_cmd(int sock, uint64_t src_device_sn, uint6
 	}
 	if (presponse->cmd == P2P_TRANSFER_QUERY_DEVICE_INFO_RESPONSE)
 	{
-		// ÏÈ¸ø²éÑ¯µÄpeer·¢ËÍ´ò¶´ÃüÁî
+		// å…ˆç»™æŸ¥è¯¢çš„peerå‘é€æ‰“æ´å‘½ä»¤
 		if (-1 == send_punch_hole_cmd_to_peer(sock, psrc_device_info, pquery_device_info))
 		{
 			XL_DEBUG(EN_PRINT_ERROR, "call send_punch_hole_cmd_to_peer failed");

@@ -22,15 +22,15 @@ extern "C" {
 
 #define P2P_TRANSFER_MAX_MSG_LENGTH	(128)
 
-//±ØĞëÓënat_probe.hÖĞµÄ¶¨Òå±£³ÖÒ»ÖÂ
+//å¿…é¡»ä¸nat_probe.hä¸­çš„å®šä¹‰ä¿æŒä¸€è‡´
 enum
 {
-	NP_UNKNOWN					= 0,	/**< Î´ÖªÍøÂçÀàĞÍ. */
-	NP_PUBLIC_NETWORK,					/**< ¹«ÓĞÍøÂç. */
-	NP_FULL_CONE_NAT,					/**< È«×¶ĞÍNAT. */
-	NP_RESTRICTED_CONE_NAT,				/**< ÏŞÖÆĞÍNAT. */
-	NP_PORT_RESTRICTED_CONE_NAT,		/**< ¶Ë¿ÚÏŞÖÆĞÍNAT. */
-	NP_SYMMETRIC_NAT,					/**< ¶Ô³ÆĞÍNAT. */
+	NP_UNKNOWN					= 0,	/**< æœªçŸ¥ç½‘ç»œç±»å‹. */
+	NP_PUBLIC_NETWORK,					/**< å…¬æœ‰ç½‘ç»œ. */
+	NP_FULL_CONE_NAT,					/**< å…¨é”¥å‹NAT. */
+	NP_RESTRICTED_CONE_NAT,				/**< é™åˆ¶å‹NAT. */
+	NP_PORT_RESTRICTED_CONE_NAT,		/**< ç«¯å£é™åˆ¶å‹NAT. */
+	NP_SYMMETRIC_NAT,					/**< å¯¹ç§°å‹NAT. */
 };
 
 enum
@@ -48,8 +48,8 @@ enum
 
 struct p2p_msg_ping_t
 {
-	uint64_t	device_sn;           //Éè±¸id
-	int			network_type;       //ÍøÂçÀàĞÍ
+	uint64_t	device_sn;           //è®¾å¤‡id
+	int			network_type;       //ç½‘ç»œç±»å‹
 };
 
 struct p2p_msg_device_info_t
@@ -62,13 +62,13 @@ struct p2p_msg_device_info_t
 
 struct p2p_msg_head_t
 {
-	uint64_t        magic;          //Ä§ÊıĞ£ÑéÂë
-	uint64_t        msgid;          //°üid,TCPĞ­Òé¸Ã×Ö¶ÎÎŞÓÃ
-	uint64_t        src_device_sn;   //·¢ËÍÏûÏ¢µÄÉè±¸sn
-	uint64_t        dst_device_sn;   //·¢ËÍÏûÏ¢µÄÉè±¸sn
-	uint32_t        cmd_len;		//Êı¾İ³¤¶È
+	uint64_t        magic;          //é­”æ•°æ ¡éªŒç 
+	uint64_t        msgid;          //åŒ…id,TCPåè®®è¯¥å­—æ®µæ— ç”¨
+	uint64_t        src_device_sn;   //å‘é€æ¶ˆæ¯çš„è®¾å¤‡sn
+	uint64_t        dst_device_sn;   //å‘é€æ¶ˆæ¯çš„è®¾å¤‡sn
+	uint32_t        cmd_len;		//æ•°æ®é•¿åº¦
 	int             cmd;
-	char            cmd_data[0];    //Êı¾İ
+	char            cmd_data[0];    //æ•°æ®
 };
 
 
@@ -112,10 +112,6 @@ struct p2p_msg_head_t
 	{ \
 		socklen_t addr_len_ = sizeof(struct sockaddr); \
 		socklen_t *paddr_len_ = &addr_len_; \
-		if (src_addr == NULL) \
-		{ \
-			paddr_len_ = NULL; \
-		} \
 		if (-1 == recvfrom(sock, buf, buf_len, 0, (struct sockaddr *)src_addr, paddr_len_)) \
 		{ \
 			XL_DEBUG(EN_PRINT_ERROR, "call recvfrom() failed, err: %s", strerror(errno)); \
@@ -144,8 +140,8 @@ struct p2p_msg_head_t
 
 
 /**
- * »ñÈ¡×Ö·û´®¸ñÊ½µÄÍøÂçÀàĞÍ
- * @param network_type	ÍøÂçÀàĞÍ
+ * è·å–å­—ç¬¦ä¸²æ ¼å¼çš„ç½‘ç»œç±»å‹
+ * @param network_type	ç½‘ç»œç±»å‹
  * 
  */
 const char *get_string_network_type(int network_type);

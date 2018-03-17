@@ -20,8 +20,8 @@ struct p2p_server_device_info_t
 	struct list_head	list;
 	struct bufferevent	*pbev;
 	uint64_t            device_sn;       
-	struct in_addr		ip_addr;		/**< natÖ®ºóµÄipµØÖ·£¬ÍøÂçĞò. >*/
-	uint16_t            port;			/**< natÖ®ºóµÄ¶Ë¿Ú£¬ÍøÂçĞò. >*/
+	struct in_addr		ip_addr;		/**< natä¹‹åçš„ipåœ°å€ï¼Œç½‘ç»œåº. >*/
+	uint16_t            port;			/**< natä¹‹åçš„ç«¯å£ï¼Œç½‘ç»œåº. >*/
 	int                 network_type;
 };
 
@@ -100,7 +100,7 @@ static int process_ping_cmd(struct bufferevent *pbev, const struct p2p_msg_ping_
 
 	XL_DEBUG(EN_PRINT_DEBUG, "device_sn: %d, network_type: %d", pping->device_sn, pping->network_type);
 
-	/// TODO:ÏÈÅĞ¶ÏÊÇ·ñ´æÔÚ
+	/// TODO:å…ˆåˆ¤æ–­æ˜¯å¦å­˜åœ¨
 	INIT_LIST_HEAD(&(pdevice_info->list));
 	pdevice_info->pbev = pbev;
 	pdevice_info->device_sn = pping->device_sn;
@@ -218,14 +218,14 @@ static int process_query_device_info_cmd(struct bufferevent *pquery_bev, uint64_
 		}
 	}
 	XL_DEBUG(EN_PRINT_DEBUG, "send P2P_TRANSFER_PUNCH_HOLE to device %llu", query_device_sn);
-	// ·¢ËÍÏûÏ¢¸øÄ¿µÄpeer
+	// å‘é€æ¶ˆæ¯ç»™ç›®çš„peer
 	if (-1 == send_punch_hole_cmd_to_peer(pdst_peer_bev, psrc_device_info))
 	{
 		XL_DEBUG(EN_PRINT_ERROR, "call send_punch_hole_cmd_to_peer() failed");
 		goto ERR;
 	}
 
-	// »Ø¸´ÇëÇóÕß
+	// å›å¤è¯·æ±‚è€…
 	if (-1 == bufferevent_write(pquery_bev, presponse, total_len))
 	{
 		XL_DEBUG(EN_PRINT_ERROR, "call bufferevent_write() failed, send P2P_TRANSFER_QUERY_DEVICE_INFO_RESPONSE failed");
@@ -305,7 +305,7 @@ static void listener_cb(struct evconnlistener *listener, evutil_socket_t conn_so
 	struct sockaddr_in *pclient_addr = NULL;
 	int addr_len = sizeof(struct sockaddr_in);
 
-	// XXX:×îÖÕÔÚconn_event_cbÖĞÊÍ·Å
+	// XXX:æœ€ç»ˆåœ¨conn_event_cbä¸­é‡Šæ”¾
 	SAFE_CALLOC(struct sockaddr_in *, pclient_addr, addr_len);
 	memcpy(pclient_addr, addr, addr_len);
 
